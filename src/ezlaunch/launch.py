@@ -38,6 +38,23 @@ def launch(
     batch_dir,
     **kwargs,
 ):
+    """
+    Launch multiple commands to run in parallel.
+
+    Run commands specified in COMMANDS_FILE in parallel, using a Slurm
+    job array if there are multiple commands. Each command must be on a
+    separate line.
+    
+    Job-related files will be stored in BATCH_DIR under JOB_NAME,
+    including JOB_NAME.sh (the commands) and JOB_NAME.sbatch (the Slurm
+    batch submission file), where JOB_NAME has had a serial number
+    appended to it.
+
+    Job output will be stored in JOB_NAME_%j.out and JOB_NAME_%j.err
+    for single commands, and JOB_NAME_%A-%a.{out,err} for multiple
+    commands, where %j is the jobid, %A is the master job allocation
+    number, and %a is the job array ID number.
+    """
     # read commands to run in parallel
     with open(commands_file, "r") as f:
         commands = f.readlines()
@@ -66,12 +83,12 @@ def launch(
     
     # output files
     if n_commands > 1:
-        array_base = batch_file.parent / f"{batch_file.stem}_%A-%a"
-        output_file = array_base.with_suffix(".out")
-        error_file = array_base.with_suffix(".err")
+        suffix = "%A-%a"
     else:
-        output_file = batch_file.with_suffix(".out")
-        error_file = batch_file.with_suffix(".err")
+        suffix = "%j"
+    base = batch_file.parent / f"{batch_file.stem}_{suffix}"
+    output_file = base.with_suffix(".out")
+    error_file = base.with_suffix(".err")
     batch.write(f"#SBATCH --output={output_file}\n")
     batch.write(f"#SBATCH --error={error_file}\n\n")
 
