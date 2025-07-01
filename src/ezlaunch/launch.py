@@ -79,8 +79,9 @@ def launch(
     for name, value in kwargs.items():
         if value is not None:
             opt = f"--{name}".replace("_", "-")
-            if value == True:
-                batch.write(f"#SBATCH {opt}\n")
+            if isinstance(value, bool):
+                if value == True:
+                    batch.write(f"#SBATCH {opt}\n")
             else:
                 batch.write(f"#SBATCH {opt}={value}\n")
 
