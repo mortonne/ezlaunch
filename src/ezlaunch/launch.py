@@ -31,7 +31,11 @@ def get_batch_file(batch_dir, job_name):
     help="event types that should trigger notification; multiple values may be specified, separated by commas (NONE, BEGIN, END, FAIL, REQUEUE, ALL, INVALID_DEPEND, STAGE_OUT, TIME_LIMIT, TIME_LIMIT_90, TIME_LIMIT_80, TIME_LIMIT_50)"
 )
 @click.option("--mail-user", help="email address to notify")
-@click.option("--test-only", help="validate the batch script and return a scheduling estimate")
+@click.option(
+    "--test-only", 
+    help="validate the batch script and return a scheduling estimate",
+    is_flag=True,
+)
 def launch(
     commands_file,
     job_name,
@@ -75,7 +79,10 @@ def launch(
     for name, value in kwargs.items():
         if value is not None:
             opt = f"--{name}".replace("_", "-")
-            batch.write(f"#SBATCH {opt}={value}\n")
+            if value == True:
+                batch.write(f"#SBATCH {opt}\n")
+            else:
+                batch.write(f"#SBATCH {opt}={value}\n")
 
     # if multiple commands, run using a job array
     if n_commands > 1:
