@@ -65,8 +65,13 @@ def launch(
         batch.write(f"#SBATCH --array=1-{n_commands}\n")
     
     # output files
-    output_file = batch_file.with_suffix(".out")
-    error_file = batch_file.with_suffix(".err")
+    if n_commands > 1:
+        array_base = batch_file.parent / f"{batch_file.stem}_%A-%a"
+        output_file = array_base.with_suffix(".out")
+        error_file = array_base.with_suffix(".err")
+    else:
+        output_file = batch_file.with_suffix(".out")
+        error_file = batch_file.with_suffix(".err")
     batch.write(f"#SBATCH --output={output_file}\n")
     batch.write(f"#SBATCH --error={error_file}\n\n")
 
