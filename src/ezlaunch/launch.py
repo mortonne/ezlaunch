@@ -113,7 +113,8 @@ def launch(
         batch.write(f"#SBATCH --error={error_file}\n\n")
 
     # get the start time
-    batch.write('echo " Job starting at $(date)"\n')
+    prefix = "(ezlaunch)"
+    batch.write(f'echo "{prefix} Starting at $(date)"\n')
     batch.write('start=$(date +%s)\n\n')
 
     # run the command
@@ -121,15 +122,15 @@ def launch(
         batch_commands_file = batch_file.with_suffix(".sh")
         shutil.copyfile(commands_file, batch_commands_file)
         batch.write(f'command=$(sed "${{SLURM_ARRAY_TASK_ID}}q;d" "{batch_commands_file}")\n')
-        batch.write('echo " Job command: $command"\n')
+        batch.write(f'echo "{prefix} Command: $command"\n')
         batch.write('eval "$command"\n\n')
     else:
         batch.write(f"{commands[0]}\n")
 
     # report finish time
-    batch.write('echo " Job complete at $(date)"\n')
+    batch.write(f'echo "{prefix} Complete at $(date)"\n')
     batch.write('finish=$(date +%s)\n')
-    batch.write('printf " Job duration: %02d:%02d:%02d (%d s)\\n" $(((finish-start)/3600)) $(((finish-start)%3600/60)) $(((finish-start)%60)) $((finish-start))\n')
+    batch.write(f'printf "{prefix} Duration: %02d:%02d:%02d (%d s)\\n" $(((finish-start)/3600)) $(((finish-start)%3600/60)) $(((finish-start)%60)) $((finish-start))\n')
 
     batch.close()
 
