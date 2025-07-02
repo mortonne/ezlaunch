@@ -65,10 +65,11 @@ from joblib import Parallel, delayed
 import sys
 n = int(sys.argv[1])
 n_jobs = int(sys.argv[2])
-Parallel(n_jobs=n_jobs)(delayed(sqrt)(i ** n) for i in range(12))
+result = Parallel(n_jobs=n_jobs)(delayed(sqrt)(i ** n) for i in range(1, 12 + 1))
+print(result)
 ```
 
-The example script takes in two commandline inputs, the power and the number of parallel jobs to use. It then calculates numbers from 1 to 12 taken to the nth power. Our job will run 12 calculations at a time in parallel, using three job array components with 4 cores each. To use the script, you must first install Joblib into your Python environment using `pip install joblib`.
+The example script takes in two commandline inputs, the power and the number of parallel jobs to use. It then calculates the square root of numbers from 1 to 12 taken to the nth power. Our job will run 12 calculations at a time in parallel, using three job array components with 4 cores each. To use the script, you must first install Joblib into your Python environment using `pip install joblib`.
 
 (This example is simplified; in this case, the overhead of scheduling a job is much higher than the speed boost from parallel execution. Running in parallel on a cluster is only worthwhile for more computationally intensive programs.)
 
