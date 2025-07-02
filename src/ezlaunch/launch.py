@@ -25,6 +25,7 @@ def get_batch_file(batch_dir, job_name):
     default=False, 
     help="write to separate output and error files",
 )
+@click.option("--account", "-A", help="account for charging resources")
 @click.option("--partition", "-p", help="partition to submit to")
 @click.option("--nodes", "-N", help="number of nodes for each command")
 @click.option("--ntasks", "-n", help="number of tasks for each command")
@@ -32,6 +33,7 @@ def get_batch_file(batch_dir, job_name):
 @click.option("--cpus-per-task", "-c", help="number of processors per task")
 @click.option("--mem-per-cpu", help="minimum memory required per processor")
 @click.option("--time", "-t", help="limit on total run time")
+@click.option("--dependency", "-d", help="job dependency specification")
 @click.option(
     "--mail-type", 
     help="event types that should trigger notification; multiple values may be specified, separated by commas (NONE, BEGIN, END, FAIL, REQUEUE, ALL, INVALID_DEPEND, STAGE_OUT, TIME_LIMIT, TIME_LIMIT_90, TIME_LIMIT_80, TIME_LIMIT_50)"
