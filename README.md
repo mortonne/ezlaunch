@@ -71,7 +71,7 @@ print(result)
 
 The example script takes in two commandline inputs, the power and the number of parallel jobs to use. It then calculates the square root of numbers from 1 to 12 taken to the nth power. Our job will run 12 calculations at a time in parallel, using three job array components with 4 cores each. To use the script, you must first install Joblib into your Python environment using `pip install joblib`.
 
-(This example is simplified; in this case, the overhead of scheduling a job is much higher than the speed boost from parallel execution. Running in parallel on a cluster is only worthwhile for more computationally intensive programs.)
+(This example is simplified; in this case, the overhead of scheduling a job is much higher than the speed boost from parallel execution. Running in parallel on a cluster is only worthwhile for more computationally intensive programs. Also note that Joblib only works within a given node, and cannot make use of cores on different nodes. Coordination of cores on different nodes can be accomplished using MPI programs.)
 
 Next, run `ezlaunch` with options to indicate how you want to run your commands. For example, to use one node per command, with 4 cores, 2G of memory per node, and a time limit of 1 minute, and save output to files starting with `testjob` in the current directory:
 
