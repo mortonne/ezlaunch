@@ -31,6 +31,7 @@ def get_batch_file(batch_dir, job_name):
 @click.option("--ntasks", "-n", help="number of tasks for each command")
 @click.option("--ntasks-per-node", help="number of tasks per node per command")
 @click.option("--cpus-per-task", "-c", help="number of processors per task")
+@click.option("--mem", help="minimum memory required per node")
 @click.option("--mem-per-cpu", help="minimum memory required per processor")
 @click.option("--time", "-t", help="limit on total run time")
 @click.option("--dependency", "-d", help="job dependency specification")
