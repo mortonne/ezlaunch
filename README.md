@@ -86,7 +86,7 @@ Running the `ezlaunch` command above should immediately create two files:
 * `testjob1.sh` - a copy of the commands file, with the same base name as other output files for ease of looking up job information later on.
 * `testjob1.sbatch` - an `sbatch` script with resource requirements, including a job array with one array job for each command, indicating that Slurm should run those jobs in parallel. It will also display the duration of the job in the output. This file can be submitting using `sbatch` (which `ezlaunch` will call automatically).
 
-Output files have a serial number appended to them; the first time you use a given job name, it will be 1, then 2, etc. This makes it easier to see later what jobs you attempted to run previously, how long they took, and what errors occurred.
+Job-related files have a serial number appended to them after the job name. The first time you use a given job name, it will be 1, then 2, etc. This makes it easier to see later what jobs you attempted to run previously, how long they took, and what errors occurred.
 
 When the job finishes, you will have output files:
 
