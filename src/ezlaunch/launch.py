@@ -124,7 +124,7 @@ def launch(
     # report finish time
     batch.write('echo " Job complete at $(date)"\n')
     batch.write('finish=$(date +%s)\n')
-    batch.write('printf "Job duration: %02d:%02d:%02d (%d s)\\n" $(((finish-start)/3600)) $(((finish-start)%3600/60)) $(((finish-start)%60)) $((finish-start))\n')
+    batch.write('printf " Job duration: %02d:%02d:%02d (%d s)\\n" $(((finish-start)/3600)) $(((finish-start)%3600/60)) $(((finish-start)%60)) $((finish-start))\n')
 
     batch.close()
 
