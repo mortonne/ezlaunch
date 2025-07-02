@@ -83,6 +83,7 @@ def launch(
     batch.write("#!/bin/bash\n")
 
     # write flags
+    kwargs["job_name"] = job_name
     for name, value in kwargs.items():
         if value is not None:
             opt = f"--{name}".replace("_", "-")
