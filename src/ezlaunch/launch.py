@@ -122,9 +122,10 @@ def launch(
         batch_commands_file = batch_file.with_suffix(".sh")
         shutil.copyfile(commands_file, batch_commands_file)
         batch.write(f'command=$(sed "${{SLURM_ARRAY_TASK_ID}}q;d" "{batch_commands_file}")\n')
-        batch.write(f'echo "{prefix} Command: $command"\n')
+        batch.write(f'echo "{prefix} Running command: $command"\n')
         batch.write('eval "$command"\n\n')
     else:
+        batch.write(f'echo "{prefix} Running command: {commands[0]}"\n')
         batch.write(f"{commands[0]}\n")
 
     # report finish time
