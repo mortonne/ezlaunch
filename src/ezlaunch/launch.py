@@ -31,6 +31,7 @@ def get_batch_file(batch_dir, job_name):
 @click.option("--ntasks-per-node", help="number of tasks per node per command")
 @click.option("--cpus-per-task", "-c", help="number of processors per task")
 @click.option("--mem-per-cpu", help="minimum memory required per processor")
+@click.option("--time", "-t", help="limit on total run time")
 @click.option(
     "--mail-type", 
     help="event types that should trigger notification; multiple values may be specified, separated by commas (NONE, BEGIN, END, FAIL, REQUEUE, ALL, INVALID_DEPEND, STAGE_OUT, TIME_LIMIT, TIME_LIMIT_90, TIME_LIMIT_80, TIME_LIMIT_50)"
