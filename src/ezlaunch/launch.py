@@ -20,6 +20,11 @@ def get_batch_file(batch_dir, job_name):
 @click.argument("commands_file", type=click.Path(exists=True))
 @click.argument("job_name")
 @click.argument("batch_dir", type=click.Path(), envvar="BATCHDIR")
+@click.option(
+    "--split-output/--no-split-output", 
+    default=False, 
+    help="write to separate output and error files",
+)
 @click.option("--partition", "-p", help="partition to submit to")
 @click.option("--nodes", "-N", help="number of nodes for each command")
 @click.option("--ntasks", "-n", help="number of tasks for each command")
@@ -40,6 +45,7 @@ def launch(
     commands_file,
     job_name,
     batch_dir,
+    split_output,
     **kwargs,
 ):
     """
@@ -96,9 +102,10 @@ def launch(
         suffix = "%j"
     base = batch_file.parent / f"{batch_file.stem}_{suffix}"
     output_file = base.with_suffix(".out")
-    error_file = base.with_suffix(".err")
     batch.write(f"#SBATCH --output={output_file}\n")
-    batch.write(f"#SBATCH --error={error_file}\n\n")
+    if split_output:
+        error_file = base.with_suffix(".err")
+        batch.write(f"#SBATCH --error={error_file}\n\n")
 
     # get the start time
     batch.write('echo " Job starting at $(date)\n')
