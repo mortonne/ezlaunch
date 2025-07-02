@@ -63,8 +63,8 @@ In this example, each command calls a Python script that uses Joblib to run comm
 from math import sqrt
 from joblib import Parallel, delayed
 import sys
-n = sys.argv[1]
-n_jobs = sys.argv[2]
+n = int(sys.argv[1])
+n_jobs = int(sys.argv[2])
 Parallel(n_jobs=n_jobs)(delayed(sqrt)(i ** n) for i in range(12))
 ```
 
