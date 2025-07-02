@@ -80,7 +80,7 @@ Next, run `ezlaunch` with options to indicate how you want to run your commands.
 
 This will allocate the specified resources for *each individual command*. Make sure each command will actually make use of the cores that you request, so that the cluster resources will be used efficiently. In this example, the `script.py` program will use Joblib to run multiple calculations in parallel using the 4 cores allocated to each command.
 
-Running `ezlaunch` should immediately create two files: 
+Running the `ezlaunch` command above should immediately create two files: 
 
 * `testjob1.sh` - a copy of the commands file, with the same base name as other output files for ease of looking up job information later on.
 * `testjob1.sbatch` - an `sbatch` script with resource requirements, including a job array with one array job for each command, indicating that Slurm should run those jobs in parallel. It will also display the duration of the job in the output. This file can be submitting using `sbatch` (which `ezlaunch` will call automatically).
