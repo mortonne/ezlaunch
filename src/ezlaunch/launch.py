@@ -110,7 +110,7 @@ def launch(
         batch.write(f"#SBATCH --error={error_file}\n\n")
 
     # get the start time
-    batch.write('echo " Job starting at $(date)\n')
+    batch.write('echo " Job starting at $(date)"\n')
     batch.write('start=$(date +%s)\n\n')
 
     # run the command
