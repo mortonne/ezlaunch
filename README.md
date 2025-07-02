@@ -3,7 +3,7 @@ Programs for managing job submission through Slurm.
 
 The ezlaunch package is designed to make it easier to submit simple parallel jobs using Slurm. The ezlaunch package provides a simple pure-Python script to quickly generate and submit Slurm jobs, organizing job-related files for easier documentation of submitting jobs and their output.
 
-A previous version of ezlaunch was designed to work with the TACC Launcher program to coordinate running commands in parallel. This version instead uses Slurm's job arrays feature, allowing it to be used with clusters that do not have Launcher installed. It should work with all Slurm-based clusters.
+A [previous version](https://github.com/prestonlab/launch) of ezlaunch was designed to work with the TACC Launcher program to coordinate running commands in parallel. This version instead uses Slurm's job arrays feature, allowing it to be used with clusters that do not have Launcher installed. It should work with all Slurm-based clusters.
 
 ## Installation
 
